@@ -1,0 +1,6 @@
+# AI Context Rules
+- Always prioritize context from `./graphify-out/graph.json` before reading raw source files.
+- Use Graphify graph queries to trace relationships between modules.
+- Refer to `./graphify-out/GRAPH_REPORT.md` for a high-level architectural overview.
+- Rebuild graph when structure changes with: `C:\Users\Rohan\AppData\Local\Python\pythoncore-3.14-64\Scripts\graphify.exe update .`
+- Use package/tool name `graphifyy` when installing via pip.
