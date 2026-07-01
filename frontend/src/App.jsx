@@ -5,6 +5,7 @@ import ProductPage from './pages/ProductPage'
 import CartPage from './pages/CartPage'
 import LoginPage from './pages/LoginPage'
 import Dashboard from './pages/Dashboard'
+import CategoriesPage from './pages/CategoriesPage'
 import Background3D from './components/Background3D'
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/categories" element={<CategoriesPage />} />
         </Routes>
       </div>
     </div>

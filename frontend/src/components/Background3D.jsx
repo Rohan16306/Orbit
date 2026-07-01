@@ -1,10 +1,22 @@
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Stars, Float } from '@react-three/drei'
 import { useRef, useMemo } from 'react'
-
+import * as THREE from 'three'
+import { useStore } from '../store/useStore'
 
 function FloatingGeometries() {
   const group = useRef()
+  const activeCategoryColor = useStore((state) => state.activeCategoryColor)
+  
+  // Shared material to apply to all geometries for performance
+  const sharedMaterial = useMemo(() => new THREE.MeshStandardMaterial({ 
+    color: '#00f0ff', 
+    wireframe: true, 
+    transparent: true, 
+    opacity: 0.3 
+  }), [])
+
+  const targetColor = useMemo(() => new THREE.Color(), [])
   
   const shapes = useMemo(() => {
     return Array.from({ length: 15 }).map(() => ({
@@ -18,10 +30,23 @@ function FloatingGeometries() {
     }))
   }, [])
 
-  useFrame(() => {
+  useFrame((state, delta) => {
+    // Smoothly transition colors and opacity
+    if (activeCategoryColor) {
+      targetColor.set(activeCategoryColor)
+    } else {
+      targetColor.set('#00f0ff')
+    }
+    
+    sharedMaterial.color.lerp(targetColor, delta * 5)
+    const targetOpacity = activeCategoryColor ? 0.8 : 0.3
+    sharedMaterial.opacity += (targetOpacity - sharedMaterial.opacity) * delta * 5
+
+    // Speed up rotation when hovering over a category
     if (group.current) {
-      group.current.rotation.y += 0.001
-      group.current.rotation.x += 0.0005
+      const speedMultiplier = activeCategoryColor ? 5 : 1
+      group.current.rotation.y += 0.001 * speedMultiplier
+      group.current.rotation.x += 0.0005 * speedMultiplier
     }
   })
 
@@ -29,14 +54,8 @@ function FloatingGeometries() {
     <group ref={group}>
       {shapes.map((props, i) => (
         <Float key={i} speed={2} rotationIntensity={1} floatIntensity={2}>
-          <mesh position={props.position} rotation={props.rotation} scale={props.scale}>
+          <mesh position={props.position} rotation={props.rotation} scale={props.scale} material={sharedMaterial}>
             <octahedronGeometry args={[1, 0]} />
-            <meshStandardMaterial 
-              color="#00f0ff" 
-              wireframe 
-              transparent 
-              opacity={0.3} 
-            />
           </mesh>
         </Float>
       ))}
