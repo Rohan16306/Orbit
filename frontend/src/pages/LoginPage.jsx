@@ -1,11 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { useStore } from '../store/useStore';
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const setLoggedIn = useStore((state) => state.setLoggedIn);
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Simulate login
+    // Simulate login and update state
+    setLoggedIn(true);
     navigate('/dashboard');
   };
 
@@ -43,7 +46,7 @@ const LoginPage = () => {
             <a href="#" className="text-neonBlue hover:text-neonPurple transition-colors font-medium">Forgot Password?</a>
           </div>
           
-          <button type="submit" className="glass-button-primary w-full mt-2">
+          <button type="button" onClick={handleLogin} className="glass-button-primary w-full mt-2">
             Sign In
           </button>
         </form>

@@ -1,11 +1,13 @@
-import { Link, useLocation } from 'react-router-dom';
-import { ShoppingCart, User, Search, Moon, Sun } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { ShoppingCart, User, Search, LogOut } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useStore } from '../store/useStore';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
-  const [isDark, setIsDark] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { isLoggedIn, setLoggedIn } = useStore();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,22 +15,15 @@ const Navbar = () => {
     };
     window.addEventListener('scroll', handleScroll);
     
-    // Check initial theme
-    if (document.documentElement.classList.contains('dark')) {
-      setIsDark(true);
-    }
+    // Force remove dark mode if it was previously set
+    document.documentElement.classList.remove('dark');
     
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleTheme = () => {
-    if (isDark) {
-      document.documentElement.classList.remove('dark');
-      setIsDark(false);
-    } else {
-      document.documentElement.classList.add('dark');
-      setIsDark(true);
-    }
+  const handleLogout = () => {
+    setLoggedIn(false);
+    navigate('/');
   };
 
   return (
@@ -43,11 +38,18 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-4">
-          <button onClick={toggleTheme} className="text-slate-500 dark:text-slate-300 hover:text-neonBlue transition-colors">
-            {isDark ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
-          <button className="text-slate-500 dark:text-slate-300 hover:text-neonBlue transition-colors"><Search size={20} /></button>
-          <Link to="/login" className="text-slate-500 dark:text-slate-300 hover:text-neonBlue transition-colors"><User size={20} /></Link>
+          <button className="text-slate-500 hover:text-neonBlue transition-colors"><Search size={20} /></button>
+          
+          {isLoggedIn ? (
+            <button onClick={handleLogout} className="text-slate-500 hover:text-neonPurple transition-colors" title="Logout">
+              <LogOut size={20} />
+            </button>
+          ) : (
+            <Link to="/login" className="text-slate-500 hover:text-neonBlue transition-colors" title="Login">
+              <User size={20} />
+            </Link>
+          )}
+
           <Link to="/cart" className="relative text-slate-500 dark:text-slate-300 hover:text-neonBlue transition-colors">
             <ShoppingCart size={20} />
             <span className="absolute -top-2 -right-2 bg-neonPurple text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center shadow-[0_0_10px_rgba(167,119,227,0.5)]">3</span>
