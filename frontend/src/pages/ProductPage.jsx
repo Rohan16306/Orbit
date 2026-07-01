@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { 
   ChevronRight, Star, ShieldCheck, Truck, RotateCcw, 
-  ShoppingCart, Zap, CheckCircle2, AlertCircle
+  ShoppingCart, Zap, CheckCircle2
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 

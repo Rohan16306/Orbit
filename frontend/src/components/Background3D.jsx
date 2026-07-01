@@ -1,7 +1,7 @@
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Stars, Float } from '@react-three/drei'
 import { useRef, useMemo } from 'react'
-import * as THREE from 'three'
+
 
 function FloatingGeometries() {
   const group = useRef()
@@ -18,7 +18,7 @@ function FloatingGeometries() {
     }))
   }, [])
 
-  useFrame((state) => {
+  useFrame(() => {
     if (group.current) {
       group.current.rotation.y += 0.001
       group.current.rotation.x += 0.0005
