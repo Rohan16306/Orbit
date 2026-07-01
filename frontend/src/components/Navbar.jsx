@@ -50,7 +50,7 @@ const Navbar = () => {
             </Link>
           )}
 
-          <Link aria-label="View Cart" to="/cart" className="relative text-slate-700 dark:text-slate-300 hover:text-neonBlue transition-colors">
+          <Link aria-label="3 items in cart" to="/cart" className="relative text-slate-700 dark:text-slate-300 hover:text-neonBlue transition-colors">
             <ShoppingCart size={20} />
             <span className="absolute -top-2 -right-2 bg-neonPurple text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center shadow-[0_0_10px_rgba(167,119,227,0.5)]">3</span>
           </Link>

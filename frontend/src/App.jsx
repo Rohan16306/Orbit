@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 
 // Lazy load the heavy 3D background component
 const Background3D = lazy(() => import('./components/Background3D'))
@@ -49,6 +50,7 @@ function App() {
           </Routes>
         </Suspense>
       </main>
+      <Footer />
     </div>
   )
 }
