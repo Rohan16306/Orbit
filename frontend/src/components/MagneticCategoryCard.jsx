@@ -51,9 +51,9 @@ const MagneticCategoryCard = ({ title, icon: Icon, neonColor, description }) => 
       />
 
       <Icon size={48} className="text-slate-800 dark:text-[#f0f4f8] mb-4 group-hover:scale-110 transition-transform duration-300 pointer-events-none" style={{ color: neonColor }} />
-      <h3 className="text-xl font-bold text-slate-800 dark:text-[#f0f4f8] tracking-wider uppercase z-10 text-center mb-2 pointer-events-none">
+      <h2 className="text-xl font-bold text-slate-800 dark:text-[#f0f4f8] tracking-wider uppercase z-10 text-center mb-2 pointer-events-none">
         {title}
-      </h3>
+      </h2>
       <p className="text-sm text-slate-600 dark:text-slate-400 text-center z-10 max-w-xs opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 pointer-events-none">
         {description}
       </p>

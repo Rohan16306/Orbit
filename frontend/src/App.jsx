@@ -35,7 +35,7 @@ function App() {
         <Background3D />
       </Suspense>
       
-      <div className="relative z-10 w-full h-full">
+      <main id="main-content" className="relative z-10 w-full h-full">
         <Navbar />
         <Suspense fallback={<OrbitLoader />}>
           <Routes>
@@ -48,7 +48,7 @@ function App() {
             <Route path="/categories" element={<CategoriesPage />} />
           </Routes>
         </Suspense>
-      </div>
+      </main>
     </div>
   )
 }
